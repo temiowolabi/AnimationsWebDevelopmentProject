@@ -1,0 +1,157 @@
+<!doctype html>
+<html>
+ <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Worked example from lecture notes</title>
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+          <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+            </head>
+        <body id="pageTwo">
+            <div class="forCssAni">
+            <canvas id = "canvas" tabindex="1">
+            Your browser does not support the HTML5 'Canvas' tag.
+        </canvas>
+                
+        <canvas class = "sun" tabindex="1">
+
+        </canvas>
+
+                      
+
+</div>
+    <div class="forText">  
+                <h2 id="text">
+                    <span style="display: initial;">Day</span>
+                    <span>Night</span>
+               Time </h2>
+                </div>
+            <script type="text/javascript">
+                            let canvas = null;
+            let ctx = null;
+           
+           window.addEventListener("load", function(){
+               
+               const loader = document.querySelector(".loader");
+              
+               loader.className += " hidden";
+               
+               
+                canvas = document.getElementById("canvas");
+                ctx = canvas.getContext("2d");
+                canvas.width = canvas.clientWidth;
+                canvas.height = canvas.clientHeight;
+
+                /* Step 1 of 3 */
+                /* Start the animations */
+                setTimeout(startImageAnimation, 7500);
+                
+                renderCanvas();
+           });
+
+            /* Step 2 of 3 */
+            /* Each animation needs its own code */
+            /******************************************************************************/
+            /* These three are ALWAYS needed */
+            let imageAnimationInterval = null;
+            const IMAGE_FRAMERATE = 5; // change to suit the animation frameRate in milliseconds. Smaller numbers give a faster animation */
+            let imageAnimationIsDisplayed = false;
+
+            /* These variables depend on the animation */
+            let image = new Image();
+            image.src = "images/night.jpg";
+            let imageX = 0;
+            let imageY = 0;
+            let size = 0;
+
+            function startImageAnimation()
+            {
+                imageAnimationIsDisplayed = true;
+                imageAnimationInterval = setInterval(updateImageAnimation, IMAGE_FRAMERATE);
+            }
+
+
+            function stopImageAnimation()
+            {
+                imageAnimationIsDisplayed = true;
+                clearInterval(imageAnimationInterval);
+                imageAnimationInterval = null; // set to null when not running           
+            }
+
+
+            function stopAndHideImageAnimation()
+            {
+                stopImageAnimation();
+                imageAnimationIsDisplayed = false;
+            }
+
+
+            function updateImageAnimation()
+            {
+                size++;
+
+                if (size === canvas.width)
+                {
+                    stopImageAnimation();
+                }
+            }
+
+
+            function renderImageAnimation()
+            {
+                if (imageAnimationIsDisplayed)
+                {
+                    ctx.drawImage(image, imageX, imageY, size, size);
+                }
+            }
+            /******************************************************************************/
+
+
+
+
+            /******************************************************************************/
+
+
+            function renderCanvas()
+            {
+                requestAnimationFrame(renderCanvas);
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+                /* Step 3 of 3 */
+                /* Drawn the animations */
+                renderImageAnimation();
+            }
+                
+                ///
+                  var text = document.getElementById('text');
+  var word = text.getElementsByTagName('span');
+  
+  var i = 0;
+  
+  function rotator(){
+      word[i].style.display = 'none';
+      i = (i + 1) % word.length;
+      word[i].style.display = 'initial';
+  }
+  setInterval(rotator, 13000);
+            </script>
+
+            
+            
+            <div class="loader">
+              <div class="wrapper">
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="circle"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <div class="shadow"></div>
+        <span>Loading</span>
+    </div>
+</div>
+    
+   
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+    "name": "webCa3",
+    "version": "1.0.0",
+    "keywords": ["util", "functional", "server", "client", "browser"],
+    "author": "madok",
+    "contributors": [],
+    "dependencies": {}
+}
